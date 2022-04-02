@@ -1,3 +1,13 @@
+from re import I
 from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+from .models import PostModel
+
+
+def index(request):
+    post = PostModel.objects.order_by("-pub_date")[:10]
+    context = {
+        "posts": post
+    }
+    return render(request, "index.html", context)
